@@ -3,9 +3,8 @@ uvicorn
 python-dotenv
 pydantic
 httpx
-python-jose[cryptography]
 google-auth
 requests
 websockets==10.4
-authlib
+authlib==1.2.1
 fastapi-mail==1.4.1
