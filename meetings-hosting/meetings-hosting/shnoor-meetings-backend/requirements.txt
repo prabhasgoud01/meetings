@@ -1,8 +1,11 @@
 fastapi
 uvicorn
-websockets
 python-dotenv
 pydantic
 httpx
 python-jose[cryptography]
 google-auth
+requests
+websockets==10.4
+authlib
+fastapi-mail==1.4.1
