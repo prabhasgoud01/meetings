@@ -15,15 +15,11 @@ from core.config import (
     JWT_SECRET, 
     JWT_ALGORITHM, 
     ACCESS_TOKEN_EXPIRE_MINUTES,
-    ALLOWED_DOMAIN,
     mask_secret
 )
 
 # Consolidated router
 router = APIRouter(tags=["Authentication"])
-
-def is_allowed_email(email: str) -> bool:
-    return email.lower().endswith(f"@{ALLOWED_DOMAIN}")
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -86,19 +82,17 @@ async def google_callback(code: str, response: Response):
                 GOOGLE_CLIENT_ID
             )
 
-            # 3. Strict Domain Validation
+            # 3. Extract user info
             email = id_info.get("email")
-            
-            if not is_allowed_email(email):
-                print(f"DEBUG: Denying login for email: {email}")
-                return RedirectResponse(url=f"{FRONTEND_URL}/login?error=Access denied. Only @{ALLOWED_DOMAIN} accounts allowed.")
+            name = id_info.get("name")
+            picture = id_info.get("picture")
 
             # 4. Generate JWT
             user_data = {
                 "sub": email,
-                "name": id_info.get("name"),
+                "name": name,
                 "email": email,
-                "picture": id_info.get("picture")
+                "picture": picture
             }
             token = create_access_token(user_data)
 
@@ -125,9 +119,6 @@ async def login(data: dict, response: Response):
     if not email or not password:
         raise HTTPException(status_code=400, detail="Email and password required")
     
-    if not is_allowed_email(email):
-        raise HTTPException(status_code=403, detail=f"Only @{ALLOWED_DOMAIN} emails are allowed")
-
     user_data = {
         "sub": email,
         "name": email.split("@")[0].capitalize(),
@@ -154,9 +145,6 @@ async def signup(data: dict, response: Response):
     
     if not email or not password or not name:
         raise HTTPException(status_code=400, detail="Name, email and password required")
-
-    if not is_allowed_email(email):
-        raise HTTPException(status_code=403, detail=f"Only @{ALLOWED_DOMAIN} emails are allowed")
 
     user_data = {
         "sub": email,

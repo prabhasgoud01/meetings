@@ -15,7 +15,6 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 JWT_SECRET = os.getenv("JWT_SECRET", "supersecret")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 1 day
-ALLOWED_DOMAIN = "shnoor.com"
 
 def mask_secret(secret: str) -> str:
     if not secret: return "None"

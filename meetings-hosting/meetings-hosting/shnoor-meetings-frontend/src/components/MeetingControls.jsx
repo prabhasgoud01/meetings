@@ -1,10 +1,10 @@
 import { Mic, MicOff, Video, VideoOff, MessageSquare, PhoneOff, Monitor, Hand, Users, Type } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export default function MeetingControls({ 
+export default function MeetingControls({
   roomId,
-  onToggleVideo, 
-  onToggleAudio, 
+  onToggleVideo,
+  onToggleAudio,
   onToggleScreenShare,
   onToggleRaiseHand,
   onToggleCaptions,
@@ -13,9 +13,9 @@ export default function MeetingControls({
   isCaptionsOn,
   isVideoOn,
   isAudioOn,
-  toggleChatVisibility, 
+  toggleChatVisibility,
   togglePeopleVisibility,
-  hasUnreadMessages 
+  hasUnreadMessages
 }) {
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ export default function MeetingControls({
 
   return (
     <div className="flex items-center justify-center gap-4 py-6 px-4">
-       <button
+      <button
         onClick={handleAudio}
         title={isAudioOn ? "Mute" : "Unmute"}
         className={`${btnBase} ${isAudioOn ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-red-500 hover:bg-red-600 text-white'}`}
@@ -96,7 +96,7 @@ export default function MeetingControls({
           </span>
         )}
       </button>
-      
+
       <button
         onClick={leaveCall}
         className={`${btnBase} bg-red-600 hover:bg-red-700 text-white px-8 ml-4 rounded-full font-bold uppercase tracking-wider text-sm flex items-center gap-2`}

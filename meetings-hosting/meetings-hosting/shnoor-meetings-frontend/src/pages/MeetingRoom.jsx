@@ -64,13 +64,13 @@ export default function MeetingRoom() {
         recognitionRef.current = new SpeechRecognition();
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
-        
+
         recognitionRef.current.onresult = (event) => {
           let interimTranscript = '';
           for (let i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
               setCurrentCaptionText(event.results[i][0].transcript);
-              setTimeout(() => setCurrentCaptionText(''), 5000); 
+              setTimeout(() => setCurrentCaptionText(''), 5000);
             } else {
               interimTranscript += event.results[i][0].transcript;
               setCurrentCaptionText(interimTranscript);
@@ -122,14 +122,14 @@ export default function MeetingRoom() {
           </span>
         </div>
         <div className="flex items-center text-gray-400">
-          <Users size={20} className="mr-2" /> 
+          <Users size={20} className="mr-2" />
           <span className="font-medium">{1 + Object.keys(remoteStreams).length}</span>
         </div>
       </header>
 
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden p-4 relative w-full h-full gap-4">
-        
+
         {/* Main Video Grid */}
         <div className={`flex-1 flex flex-col transition-all duration-300 ${isChatOpen ? 'pr-0 md:pr-4 md:w-3/4' : 'w-full'}`}>
           <div className="flex-1 rounded-2xl overflow-hidden flex items-center justify-center p-2">
@@ -143,12 +143,12 @@ export default function MeetingRoom() {
                     {mediaError ? 'Camera/Mic Access Failed' : 'Ready to join?'}
                   </h3>
                   <p className="text-gray-400 max-w-sm">
-                    {mediaError 
+                    {mediaError
                       ? `We couldn't access your hardware: ${mediaError}. Please check your browser permissions.`
                       : 'We are requesting access to your camera and microphone. Please click "Allow" in the browser prompt.'}
                   </p>
                   {mediaError && (
-                    <button 
+                    <button
                       onClick={() => window.location.reload()}
                       className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold shadow-lg transition-all transform active:scale-95"
                     >
@@ -158,16 +158,16 @@ export default function MeetingRoom() {
                 </div>
               </div>
             ) : (
-              <VideoGrid 
-                localStream={localStream} 
-                remoteStreams={remoteStreams} 
+              <VideoGrid
+                localStream={localStream}
+                remoteStreams={remoteStreams}
                 participantsMetadata={participantsMetadata}
                 localHandRaised={isHandRaised}
                 localParticipantName={displayName || 'You'}
                 isSharingScreen={isSharingScreen}
               />
             )}
-            
+
             {isCaptionsOn && currentCaptionText && (
               <div className="absolute bottom-28 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-6 py-3 rounded-xl max-w-3xl text-center shadow-2xl z-10 animate-in fade-in slide-in-from-bottom-4 duration-300">
                 <p className="text-white text-lg font-medium tracking-wide">
@@ -176,9 +176,9 @@ export default function MeetingRoom() {
               </div>
             )}
           </div>
-          
+
           {/* Floating Action Menu aligned bottom center */}
-          <MeetingControls 
+          <MeetingControls
             roomId={roomId}
             onToggleVideo={toggleVideo}
             onToggleAudio={toggleAudio}
@@ -208,7 +208,7 @@ export default function MeetingRoom() {
               <h2 className="font-semibold text-lg">In-call messages</h2>
               <button className="text-gray-400 hover:text-white md:hidden" onClick={() => setIsChatOpen(false)}>✕</button>
             </div>
-            
+
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.length === 0 ? (
                 <div className="h-full flex items-center justify-center text-gray-500 text-sm text-center px-4">
@@ -255,7 +255,7 @@ export default function MeetingRoom() {
               <h2 className="font-semibold text-lg">People</h2>
               <button className="text-gray-400 hover:text-white md:hidden" onClick={() => setIsPeopleOpen(false)}>✕</button>
             </div>
-            
+
             <div className="flex-1 overflow-y-auto p-4 space-y-6">
               {/* Waiting Room / Lobby Section */}
               {isHost && (
@@ -277,7 +277,7 @@ export default function MeetingRoom() {
                             <span className="text-sm font-medium text-white truncate">{req.name}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button 
+                            <button
                               onClick={() => admitParticipant(req.id)}
                               className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-xs font-semibold hover:bg-blue-500 transition-colors inline-flex items-center gap-1"
                             >
@@ -332,7 +332,7 @@ export default function MeetingRoom() {
             <div className="bg-white rounded-2xl shadow-2xl p-4 border border-gray-200">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-gray-800 font-bold text-sm">Join requests</h3>
-                <button 
+                <button
                   onClick={() => setIsPeopleOpen(true)}
                   className="bg-blue-100 text-blue-600 px-3 py-0.5 rounded-full text-xs font-bold hover:bg-blue-200"
                 >
