@@ -29,9 +29,11 @@ app = FastAPI(
 )
 
 # CORS configuration
+from core.config import FRONTEND_URL
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[FRONTEND_URL, "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

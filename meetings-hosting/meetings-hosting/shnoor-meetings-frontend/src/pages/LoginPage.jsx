@@ -71,7 +71,7 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8000/google/login';
+    window.location.href = `${api.defaults.baseURL}/google/login`;
   };
 
   return (

@@ -15,6 +15,7 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 JWT_SECRET = os.getenv("JWT_SECRET", "supersecret")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 1 day
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development") # "development" or "production"
 
 def mask_secret(secret: str) -> str:
     if not secret: return "None"
@@ -33,5 +34,7 @@ def validate_config():
         raise RuntimeError(error_msg)
     
     logger.info("Configuration validated successfully.")
+    logger.info(f"Environment: {ENVIRONMENT}")
     logger.info(f"Using Client ID: {mask_secret(GOOGLE_CLIENT_ID)}")
     logger.info(f"Using Redirect URI: {GOOGLE_REDIRECT_URI}")
+    logger.info(f"Frontend URL: {FRONTEND_URL}")

@@ -15,6 +15,7 @@ from core.config import (
     JWT_SECRET, 
     JWT_ALGORITHM, 
     ACCESS_TOKEN_EXPIRE_MINUTES,
+    ENVIRONMENT,
     mask_secret
 )
 
@@ -103,8 +104,8 @@ async def google_callback(code: str, response: Response):
                 value=token,
                 httponly=True,
                 max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-                samesite="lax",
-                secure=False # Set to True in production with HTTPS
+                samesite="none" if ENVIRONMENT == "production" else "lax",
+                secure=True if ENVIRONMENT == "production" else False
             )
             return redirect
 
@@ -132,8 +133,8 @@ async def login(data: dict, response: Response):
         value=token,
         httponly=True,
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-        samesite="lax",
-        secure=False
+        samesite="none" if ENVIRONMENT == "production" else "lax",
+        secure=True if ENVIRONMENT == "production" else False
     )
     return user_data
 
@@ -159,8 +160,8 @@ async def signup(data: dict, response: Response):
         value=token,
         httponly=True,
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-        samesite="lax",
-        secure=False
+        samesite="none" if ENVIRONMENT == "production" else "lax",
+        secure=True if ENVIRONMENT == "production" else False
     )
     return user_data
 

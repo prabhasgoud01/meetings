@@ -3,3 +3,6 @@ uvicorn
 websockets
 python-dotenv
 pydantic
+httpx
+python-jose[cryptography]
+google-auth
