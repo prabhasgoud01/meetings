@@ -8,3 +8,4 @@ requests
 websockets==10.4
 authlib==1.2.1
 fastapi-mail==1.4.1
+python-jose[cryptography]
