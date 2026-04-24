@@ -38,6 +38,7 @@ def get_user_from_token(token: str):
 @router.get("/google/login")
 async def google_login():
     print(f"DEBUG: Triggering Google Login redirect")
+    print(f"DEBUG: Using Redirect URI: {GOOGLE_REDIRECT_URI}")
     print(f"DEBUG: Using Client ID: {mask_secret(GOOGLE_CLIENT_ID)}")
     
     if not GOOGLE_CLIENT_ID:
